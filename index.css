@@ -1,0 +1,75 @@
+body {
+  padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    --form-height: 6rem;
+    --form-content-size: 2rem;
+}
+canvas {
+    background-color: black;
+    width: 100%;
+    object-fit: contain;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+img {
+    display: none;
+}
+#player1 {
+  position: absolute;
+  width: 95px; /* viewing window */
+  height: 150px; /* viewing window */
+  overflow: hidden;
+  opacity: 1;
+    scale: 1;
+  }
+  #spriteImg1 {
+    right: 0px;
+    height: 100%;
+    position: relative;
+    scale: 1;
+  }
+#player2 {
+    position: absolute;
+    width: 107px; /* viewing window */
+    height: 150px; /* viewing window */
+    overflow: hidden;
+    opacity: 1;
+    scale: 1;
+  }
+  #spriteImg2 {
+    right: 0px;
+    height: 100%;
+    position: relative;
+    scale: 1;
+  }
+form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: var(--form-content-size);
+  height: var(--form-content-size);
+  padding-bottom: 1vw;
+}
+form * {
+  font-size: var(--form-content-size);
+}
+input[type="checkbox"] {
+  width: var(--form-content-size);
+  height: var(--form-content-size);
+}
+main {
+  display: flex;
+  height: calc(100% - var(--form-height));
+}
+label {
+  color: black;
+}
+  
