@@ -6,9 +6,6 @@ body {
 }
 body {
     display: flex;
-    flex-direction: column;
-    --form-height: 6rem;
-    --form-content-size: 2rem;
 }
 canvas {
     background-color: black;
@@ -48,28 +45,4 @@ img {
     position: relative;
     scale: 1;
   }
-form {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  gap: var(--form-content-size);
-  height: var(--form-content-size);
-  padding-bottom: 1vw;
-}
-form * {
-  font-size: var(--form-content-size);
-}
-input[type="checkbox"] {
-  width: var(--form-content-size);
-  height: var(--form-content-size);
-}
-main {
-  display: flex;
-  height: calc(100% - var(--form-height));
-}
-label {
-  color: black;
-}
   

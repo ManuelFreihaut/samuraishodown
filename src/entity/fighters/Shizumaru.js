@@ -2,14 +2,17 @@ import { FighterState } from '../../constants/fighter.js';
 import { Fighter } from './Fighter.js';
 
 export class Shizumaru extends Fighter {
-    constructor(x, y, velocity) {
-        super('Shizumaru', x, y, velocity);
+    
+    constructor(x, y, direction, playerId) {
+        super('Shizumaru', x, y, direction, playerId);
 
         this.image = document.querySelector('img[alt="shizumaru"]');
 
         let i = 98;
         let f = 71;
         let b = 92;
+
+        let c = 113;
     
         this.frames = new Map([
             // Idle Stance
@@ -52,17 +55,83 @@ export class Shizumaru extends Fighter {
             ['backwards-9', [[b * 2, 150, b, 150], [b / 2, 150]]],
             ['backwards-10', [[b * 3, 150, b, 150], [b / 2, 150]]],
             ['backwards-11', [[b * 4, 150, b, 150], [b / 2, 150]]],
+
+            // Jump Up
+            ['jump-up-0', [[3, 70, 92, 80], [49, 100]]],
+            ['jump-up-1', [[100, 79, 91, 71], [49, 100]]],
+            ['jump-up-2', [[202, 87, 88, 63], [49, 100]]],
+            ['jump-up-3', [[302, 84, 98, 66], [49, 100]]],
+            ['jump-up-4', [[401, 83, 99, 67], [48, 100]]],
+            ['jump-up-5', [[500, 74, 100, 75], [49, 100]]],
+            ['jump-up-6', [[603, 63, 95, 87], [49, 100]]],
+
+            // Crouch
+            ['crouch-0', [[0, 0, c, 150], [70, 150]]],
+            ['crouch-1', [[c, 0, c, 150], [70, 150]]],
+            ['crouch-2', [[c * 2, 0, c, 150], [70, 150]]],
+
+            // Stand Turn
+            ['idle-turn-0', [[0, 56, 79, 85], [40, 90]]],
+            ['idle-turn-1', [[101, 53, 44, 88], [20, 95]]],
+            ['idle-turn-2', [[170, 53, 47, 88], [25, 95]]],
+            ['idle-turn-3', [[236, 57, 79, 84], [40, 90]]],
+
+            // Crouch Turn
+            ['crouch-turn-0', [[352, 78, 102, 71], [70, 70]]],
+            ['crouch-turn-1', [[472, 75, 88, 73], [65, 70]]],
+            ['crouch-turn-2', [[585, 77, 43, 73], [23, 70]]],
+            ['crouch-turn-3', [[658, 81, 81, 69], [30, 65]]],
         ]);
 
         this.animations = {
-            [FighterState.IDLE]: ['idle-0', 'idle-1', 'idle-2', 'idle-3', 'idle-4', 'idle-5', 'idle-6', 'idle-7', 'idle-8', 'idle-9', 'idle-10', 'idle-11'],
-            [FighterState.WALK_FORWARD]: ['forwards-0', 'forwards-1', 'forwards-2', 'forwards-3', 'forwards-4', 'forwards-5', 'forwards-6', 'forwards-7', 'forwards-8', 'forwards-9', 'forwards-10'],
-            [FighterState.WALK_BACKWARD]: ['backwards-0', 'backwards-1', 'backwards-2', 'backwards-3', 'backwards-4', 'backwards-5', 'backwards-6', 'backwards-7', 'backwards-8', 'backwards-9', 'backwards-10', 'backwards-11'],
-            [FighterState.JUMP_UP]: ['jump-up-0'],
+            [FighterState.IDLE]: [
+                ['idle-0', 80], ['idle-1', 80], ['idle-2', 80], 
+                ['idle-3', 80], ['idle-4', 80], ['idle-5', 80], 
+                ['idle-6', 80], ['idle-7', 80], ['idle-8', 80],
+                ['idle-9', 80], ['idle-10', 80], ['idle-11', 80],
+            ],
+            [FighterState.WALK_FORWARD]: [
+                ['forwards-0', 80], ['forwards-1', 80], ['forwards-2', 80], 
+                ['forwards-3', 80], ['forwards-4', 80], ['forwards-5', 80], 
+                ['forwards-6', 80], ['forwards-7', 80], ['forwards-8', 80],
+                ['forwards-9', 80], ['forwards-10', 80],
+            ],
+            [FighterState.WALK_BACKWARD]: [
+                ['backwards-0', 80], ['backwards-1', 80], ['backwards-2', 80], 
+                ['backwards-3', 80], ['backwards-4', 80], ['backwards-5', 80], 
+                ['backwards-6', 80], ['backwards-7', 80], ['backwards-8', 80],
+                ['backwards-9', 80], ['backwards-10', 80], ['backwards-11', 80]
+            ],
+            [FighterState.JUMP_UP]: [
+                ['jump-up-0', 100], ['jump-up-1', 100], ['jump-up-2', 80],
+                ['jump-up-3', 100], ['jump-up-4', 100], ['jump-up-5', 100],
+                ['jump-up-6', 80]
+            ],
+            [FighterState.CROUCH]: [
+                ['crouch-2', 0]
+            ],
+            [FighterState.CROUCH_DOWN]: [
+                ['crouch-0', 50], ['crouch-1', 50], ['crouch-2', 50], ['crouch-1', -2],
+            ],
+            [FighterState.CROUCH_UP]: [
+                ['crouch-2', 50], ['crouch-1', 50], ['crouch-0', 50], ['crouch-1', -2],
+            ],
+            [FighterState.IDLE_TURN]: [
+                ['idle-turn-3', 65], ['idle-turn-2', 65], ['idle-turn-1', 65], ['idle-turn-0', 65], ['idle-turn-0', -2],
+            ],
+            [FighterState.CROUCH_TURN]: [
+                ['crouch-turn-3', 65], ['crouch-turn-2', 65], ['crouch-turn-1', 65], ['crouch-turn-0', 65], ['crouch-turn-0', -2],
+            ],
         };
 
         this.initialVelocity = {
+            x: {
+                [FighterState.WALK_FORWARD]: 100,
+                [FighterState.WALK_BACKWARD]: -80,
+            },
             jump: -420,
         };
+
+        this.gravity = 1000;
     }
 }
